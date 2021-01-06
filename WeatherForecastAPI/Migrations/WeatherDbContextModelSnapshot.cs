@@ -8,8 +8,8 @@ using WeatherForecastAPI.Data;
 
 namespace WeatherForecastAPI.Migrations
 {
-    [DbContext(typeof(WeatherContext))]
-    partial class WeatherContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(WeatherDbContext))]
+    partial class WeatherDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

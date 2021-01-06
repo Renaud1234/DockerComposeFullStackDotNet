@@ -9,9 +9,9 @@ using WeatherForecastAPI.Data;
 
 namespace WeatherForecastAPI.Migrations
 {
-    [DbContext(typeof(WeatherContext))]
-    [Migration("20201222131354_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(WeatherDbContext))]
+    [Migration("20210105171706_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

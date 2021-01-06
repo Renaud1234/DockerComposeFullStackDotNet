@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  dbSqlServer:
+    image: "mcr.microsoft.com/mssql/server:2017-latest"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=1Secure*Password1
+
+  weatherforecastapi:
+    image: ${DOCKER_REGISTRY-}weatherforecastapi
+    build:
+      context: .
+      dockerfile: WeatherForecastAPI/Dockerfile
+    depends_on:
+      - dbSqlServer
