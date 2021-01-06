@@ -21,8 +21,10 @@ namespace WeatherForecastAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration["ConnectionString"] ?? Configuration.GetConnectionString("WeatherDbContext");
+
             services.AddDbContext<WeatherDbContext>(options => options
-                .UseSqlServer(Configuration.GetConnectionString("WeatherDbContext")));
+                .UseSqlServer(connectionString));
 
             services.AddControllers();
             

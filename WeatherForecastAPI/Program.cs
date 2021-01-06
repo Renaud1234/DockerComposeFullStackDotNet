@@ -25,6 +25,8 @@ namespace WeatherForecastAPI
                 {
                     dbContext.Database.Migrate();
                 }
+
+                DbSeeding.Initialize(dbContext);
             }
             catch (Exception ex)
             {
