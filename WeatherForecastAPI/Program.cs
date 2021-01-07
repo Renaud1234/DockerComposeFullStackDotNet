@@ -21,11 +21,7 @@ namespace WeatherForecastAPI
             try
             {
                 var dbContext = services.GetRequiredService<WeatherDbContext>();
-                if (dbContext.Database.IsSqlServer())
-                {
-                    dbContext.Database.Migrate();
-                }
-
+                MigrateDbContext(dbContext);
                 DbSeeding.Initialize(dbContext);
             }
             catch (Exception ex)
@@ -51,5 +47,14 @@ namespace WeatherForecastAPI
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        private static void MigrateDbContext<TContext>(TContext dbContext)
+            where TContext : DbContext
+        {
+            if (dbContext.Database.IsSqlServer())
+            {
+                dbContext.Database.Migrate();
+            }
+        }
     }
 }

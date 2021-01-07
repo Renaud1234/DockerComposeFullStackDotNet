@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WeatherForecastAPI.Data;
+using WeatherForecastAPI.DTOs.WeatherForecastViewModels;
 using WeatherForecastAPI.Models;
 
 namespace WeatherForecastAPI.Controllers
@@ -21,14 +22,21 @@ namespace WeatherForecastAPI.Controllers
 
         // GET: api/WeatherForecasts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WeatherForecast>>> GetWeatherForecasts()
+        public async Task<ActionResult<IEnumerable<WeatherForecastRead>>> GetWeatherForecasts()
         {
-            return await _context.WeatherForecasts.ToListAsync();
+            var weatherForecast = _context.WeatherForecasts
+                                          .AsQueryable();
+
+            IQueryable<WeatherForecastRead> weatherForecastReads = from w in weatherForecast
+                                                                   select new WeatherForecastRead(w);
+
+            return await weatherForecastReads.ToListAsync();
+            //return await _context.WeatherForecasts.ToListAsync();
         }
 
         // GET: api/WeatherForecasts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<WeatherForecast>> GetWeatherForecast(int id)
+        public async Task<ActionResult<WeatherForecastRead>> GetWeatherForecast(int id)
         {
             var weatherForecast = await _context.WeatherForecasts.FindAsync(id);
 
@@ -37,18 +45,28 @@ namespace WeatherForecastAPI.Controllers
                 return NotFound();
             }
 
-            return weatherForecast;
+            return new WeatherForecastRead(weatherForecast);
         }
 
         // PUT: api/WeatherForecasts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWeatherForecast(int id, WeatherForecast weatherForecast)
+        public async Task<IActionResult> PutWeatherForecast(int id, WeatherForecastUpdate weatherForecastUpdate)
         {
-            if (id != weatherForecast.Id)
+            if (id != weatherForecastUpdate.Id)
             {
                 return BadRequest();
             }
+
+            var weatherForecast = await _context.WeatherForecasts.FindAsync(id);
+
+            if (weatherForecast == null)
+            {
+                return BadRequest();
+            }
+
+            weatherForecast.TemperatureC = weatherForecastUpdate.TemperatureC;
+            weatherForecast.Summary = weatherForecastUpdate.Summary;
 
             _context.Entry(weatherForecast).State = EntityState.Modified;
 
@@ -74,12 +92,21 @@ namespace WeatherForecastAPI.Controllers
         // POST: api/WeatherForecasts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<WeatherForecast>> PostWeatherForecast(WeatherForecast weatherForecast)
+        public async Task<ActionResult<WeatherForecastRead>> PostWeatherForecast(WeatherForecastCreate weatherForecastCreate)
         {
+            var weatherForecast = new WeatherForecast()
+            {
+                Date = weatherForecastCreate.Date,
+                TemperatureC = weatherForecastCreate.TemperatureC,
+                Summary = weatherForecastCreate.Summary
+            };
+
             _context.WeatherForecasts.Add(weatherForecast);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetWeatherForecast", new { id = weatherForecast.Id }, weatherForecast);
+            return CreatedAtAction("GetWeatherForecast",
+                                   new { id = weatherForecast.Id },
+                                   new WeatherForecastRead(weatherForecast));
         }
 
         // DELETE: api/WeatherForecasts/5
