@@ -1,13 +1,21 @@
 version: '3.4'
 
 services:
-  dbSqlServer:
-    image: "mcr.microsoft.com/mssql/server:2019-latest"
+  webuserinterface:
+    image: ${DOCKER_REGISTRY-}webuserinterface
+    build:
+      context: .
+      dockerfile: WebUserInterface/Dockerfile
 
   weatherforecastapi:
     image: ${DOCKER_REGISTRY-}weatherforecastapi
     build:
       context: .
       dockerfile: WeatherForecastAPI/Dockerfile
-    depends_on:
-      - dbSqlServer
+
+  dbSqlServer:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+
+networks:
+  docker-network:
+    external: true

@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherForecastAPI", "WeatherForecastAPI\WeatherForecastAPI.csproj", "{F44083A1-784F-443D-A490-AB97B260A574}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{ED900F45-CF86-4CB0-A6EF-53BCA8298CBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUserInterface", "WebUserInterface\WebUserInterface.csproj", "{B807E4C5-31E2-4E30-8945-5BCEA3D5207F}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8CF99270-1AB4-42F3-82E4-B21179E47292}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +19,14 @@ Global
 		{F44083A1-784F-443D-A490-AB97B260A574}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F44083A1-784F-443D-A490-AB97B260A574}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F44083A1-784F-443D-A490-AB97B260A574}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED900F45-CF86-4CB0-A6EF-53BCA8298CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED900F45-CF86-4CB0-A6EF-53BCA8298CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED900F45-CF86-4CB0-A6EF-53BCA8298CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED900F45-CF86-4CB0-A6EF-53BCA8298CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B807E4C5-31E2-4E30-8945-5BCEA3D5207F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B807E4C5-31E2-4E30-8945-5BCEA3D5207F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B807E4C5-31E2-4E30-8945-5BCEA3D5207F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B807E4C5-31E2-4E30-8945-5BCEA3D5207F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CF99270-1AB4-42F3-82E4-B21179E47292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CF99270-1AB4-42F3-82E4-B21179E47292}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CF99270-1AB4-42F3-82E4-B21179E47292}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CF99270-1AB4-42F3-82E4-B21179E47292}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
