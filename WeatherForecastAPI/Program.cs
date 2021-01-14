@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Polly;
 using System;
 using System.Threading.Tasks;
 using WeatherForecastAPI.Data;
@@ -21,8 +23,8 @@ namespace WeatherForecastAPI
             try
             {
                 var dbContext = services.GetRequiredService<WeatherDbContext>();
-                MigrateDbContext(dbContext);
-                DbSeeding.Initialize(dbContext);
+                await MigrateDbContextAsync(dbContext);
+                await DbSeeding.InitializeAsync(dbContext);
             }
             catch (Exception ex)
             {
@@ -36,11 +38,6 @@ namespace WeatherForecastAPI
             await host.RunAsync();
         }
 
-        //public static void Main(string[] args)
-        //{
-        //    CreateHostBuilder(args).Build().Run();
-        //}
-
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
@@ -48,12 +45,22 @@ namespace WeatherForecastAPI
                     webBuilder.UseStartup<Startup>();
                 });
 
-        private static void MigrateDbContext<TContext>(TContext dbContext)
+        private static async Task MigrateDbContextAsync<TContext>(TContext dbContext)
             where TContext : DbContext
         {
+            // Use Polly nuget to handle SqlException and retry 3 times the database migration
             if (dbContext.Database.IsSqlServer())
             {
-                dbContext.Database.Migrate();
+                var policy = Policy
+                  .Handle<SqlException>()
+                  .WaitAndRetryAsync(new[]
+                  {
+                    TimeSpan.FromSeconds(2),
+                    TimeSpan.FromSeconds(5),
+                    TimeSpan.FromSeconds(8)
+                  });
+
+                await policy.ExecuteAsync(() => dbContext.Database.MigrateAsync());
             }
         }
     }

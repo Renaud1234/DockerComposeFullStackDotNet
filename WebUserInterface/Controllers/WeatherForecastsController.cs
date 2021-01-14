@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebUserInterface.Models;
 using WebUserInterface.Services;
@@ -12,12 +11,12 @@ namespace WebUserInterface.Controllers
     {
         //private readonly WebUIContext _context;
         private readonly IWeatherForecastService _service;
-    
+
         public WeatherForecastsController(IWeatherForecastService service)
         {
             _service = service;
         }
-    
+
         // GET: WeatherForecasts
         public async Task<IActionResult> Index()
         {

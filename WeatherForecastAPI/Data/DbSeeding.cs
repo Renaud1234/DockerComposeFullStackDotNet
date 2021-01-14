@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using WeatherForecastAPI.Models;
 
 namespace WeatherForecastAPI.Data
@@ -11,14 +12,14 @@ namespace WeatherForecastAPI.Data
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        public static void Initialize(WeatherDbContext context)
+        public static async Task InitializeAsync(WeatherDbContext context)
         {
             if (context.WeatherForecasts.Any() == false)
             {
                 context.WeatherForecasts.AddRange(
                     GetWeatherForecastData());
 
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
 

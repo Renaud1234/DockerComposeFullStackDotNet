@@ -11,7 +11,8 @@ namespace WebUserInterface.Services
         private readonly string RequestUri = "api/WeatherForecasts";
         private readonly string UriString = "http://weatherforecastapi:80";
 
-        private readonly ApiGenericRepository<WeatherForecast> _repository;
+        //private readonly ApiGenericRepository<WeatherForecast> _repository;
+        private readonly IApiGenericRepository<WeatherForecast> _repository;
 
         public WeatherForecastService()
         {

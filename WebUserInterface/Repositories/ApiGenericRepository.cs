@@ -39,7 +39,7 @@ namespace WebUserInterface.Repositories
             Uri uri = new Uri(Uri + "/" + id);
             //return await GetAsync(uri);
 
-            TEntity entity = default;            
+            TEntity entity = default;
             HttpResponseMessage response = await Client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {

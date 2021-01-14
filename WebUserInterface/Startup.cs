@@ -20,6 +20,7 @@ namespace WebUserInterface
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+            //services.AddScoped<IApiGenericRepository<BaseEntity>, ApiGenericRepository<BaseEntity>>();
 
             services.AddControllersWithViews();
         }
