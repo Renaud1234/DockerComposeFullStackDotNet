@@ -15,7 +15,3 @@ services:
 
   dbSqlServer:
     image: "mcr.microsoft.com/mssql/server:2019-latest"
-
-networks:
-  docker-network:
-    external: true

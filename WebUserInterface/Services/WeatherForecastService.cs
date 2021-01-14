@@ -9,7 +9,7 @@ namespace WebUserInterface.Services
     public class WeatherForecastService : IWeatherForecastService
     {
         private readonly string RequestUri = "api/WeatherForecasts";
-        private readonly string UriString = "http://localhost:5001";
+        private readonly string UriString = "http://weatherforecastapi:80";
 
         private readonly ApiGenericRepository<WeatherForecast> _repository;
 

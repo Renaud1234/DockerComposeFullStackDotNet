@@ -31,7 +31,6 @@ namespace WeatherForecastAPI.Controllers
                                                                    select new WeatherForecastRead(w);
 
             return await weatherForecastReads.ToListAsync();
-            //return await _context.WeatherForecasts.ToListAsync();
         }
 
         // GET: api/WeatherForecasts/5
